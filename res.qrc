@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/qss">
+        <file>ui.qss</file>
+        <file>res/arrow.png</file>
+        <file>res/rbtn_checked.png</file>
+        <file>res/rbtn_unchecked.png</file>
+    </qresource>
+</RCC>
