@@ -33,4 +33,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 #DEFINES += LOG2FILE
 
 RESOURCES += \
-    res.qrc
+    res/res.qrc
