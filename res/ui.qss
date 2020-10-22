@@ -37,7 +37,8 @@ QPushButton:hover {
 }
 
 /* Increase the padding, so the text is shifted when the button is
-   pressed. */
+   p
+   sed. */
 QPushButton:pressed {
     padding-left: 5px;
     padding-top: 5px;
@@ -61,10 +62,10 @@ QRadioButton#singleRadioBtn::indicator {
 }
 
 QRadioButton::indicator:unchecked{
-    image: url(:/qss/res/rbtn_unchecked.png);
+    image: url(:/qss/rbtn_unchecked.png);
 }
 QRadioButton::indicator:checked{
-    image: url(:/qss/res/rbtn_checked.png);
+    image: url(:/qss/rbtn_checked.png);
 }
 
 QComboBox
