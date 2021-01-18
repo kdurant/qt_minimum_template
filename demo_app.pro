@@ -35,4 +35,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     res/res.qrc
 
+DESTDIR = ../bin
+
 #include(Deploy.pri)
+
+win32{
+    QMAKE_POST_LINK +=  echo "Hello windows"
+}else{
+    QMAKE_POST_LINK +=  echo "Hello linux"
+}
+

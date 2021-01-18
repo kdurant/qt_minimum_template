@@ -15,6 +15,8 @@ tmp
 GPATH
 GRTAGS
 GTAGS*
+bin
+.nvimlog
 
 ##################qt###################
 !compile_flags.txt
