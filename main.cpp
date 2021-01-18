@@ -39,7 +39,10 @@ int main(int argc, char *argv[])
     QFile qss(":/qss/ui.qss");
     //    QFile qss("basic.qss");
     if(qss.open(QFile::ReadOnly))
+    { 
+        //a.setWindowIcon(QIcon(":/qss/communication.ico"));
         a.setStyleSheet(qss.readAll());
+    }
     else
         QMessageBox::warning(NULL, "warning", "没有主题文件");
     
