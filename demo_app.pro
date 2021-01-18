@@ -35,4 +35,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     res/res.qrc
 
-include(Deploy.pri)
+#include(Deploy.pri)
