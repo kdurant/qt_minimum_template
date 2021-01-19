@@ -17,7 +17,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// configIni->value("System/oceanPort")
+// configIni->value("System/oceanPort").toString()
+// configIni->value("System/oceanPort").toInt()
 void MainWindow::initParameter()
 {
 }
