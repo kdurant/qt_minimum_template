@@ -24,6 +24,9 @@ public:
     void initParameter();
     void saveParameter();
 
+    void initUI();
+    void initSignalSlot();
+
 private:
     Ui::MainWindow *ui;
     QSettings *     configIni;

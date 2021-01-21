@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     configIni = new QSettings("./config.ini", QSettings::IniFormat);
 
     initParameter();
+    initUI();
+    initSignalSlot();
 }
 
 MainWindow::~MainWindow()
@@ -28,6 +30,14 @@ void MainWindow::saveParameter()
 {
     configIni->setValue("System/RadarType", "land");
     configIni->setValue("Laser/freq", 1111);
+}
+
+void MainWindow::initUI()
+{
+    setWindowTitle("xxx软件");
+}
+void MainWindow::initSignalSlot()
+{
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
