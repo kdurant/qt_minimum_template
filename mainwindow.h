@@ -1,8 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QtCore>
 #include <QMainWindow>
 #include <QSettings>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -25,10 +27,13 @@ public:
     void saveParameter();
 
     void initUI();
+    void userStatusBar();
     void initSignalSlot();
 
 private:
     Ui::MainWindow *ui;
     QSettings *     configIni;
+    QLabel *        statusLabel;
+    QString         softwareVer;
 };
 #endif  // MAINWINDOW_H

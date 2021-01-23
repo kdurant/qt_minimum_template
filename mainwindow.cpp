@@ -3,7 +3,9 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    statusLabel(new QLabel()),
+    softwareVer("0.00")
 {
     ui->setupUi(this);
 
@@ -11,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initParameter();
     initUI();
+    userStatusBar();
     initSignalSlot();
 }
 
@@ -36,6 +39,13 @@ void MainWindow::initUI()
 {
     setWindowTitle("xxx软件");
 }
+
+void MainWindow::userStatusBar()
+{
+    statusLabel->setText("软件版本：" + softwareVer);
+    ui->statusbar->addPermanentWidget(statusLabel);
+}
+
 void MainWindow::initSignalSlot()
 {
 }
