@@ -35,14 +35,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     res/res.qrc
 
+VERSION = 0.00
+DEFINES += SOFT_VERSION=\"\\\"$$VERSION\\\"\"
+
+TARGET = demo_app$$VERSION
+
 DESTDIR = $$absolute_path($${_PRO_FILE_PWD_}/bin/)
 
-
-#win32{
-#    QMAKE_POST_LINK +=  echo "Hello windows"
-#}else{
-#    QMAKE_POST_LINK +=  echo "Hello linux"
-#}
 
 
 isEmpty(TARGET_EXT) {

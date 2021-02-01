@@ -4,8 +4,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    statusLabel(new QLabel()),
-    softwareVer("0.00")
+    statusLabel(new QLabel())
 {
     ui->setupUi(this);
 
