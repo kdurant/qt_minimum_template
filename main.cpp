@@ -17,11 +17,11 @@ void customMessageOutput(QtMsgType type, const QMessageLogContext &context, cons
     QString                   logLevelName     = msgLevelHash[type];
     QByteArray                logLevelMsg      = logLevelName.toLocal8Bit();
 #ifdef LOG2FILE
-    QString txt = QString("%1 %2: %3 (%4)").arg(formattedTime, logLevelName, msg, context.file);
+    QString txt = QString("%1 %2: %3 (%4)\n").arg(formattedTime, logLevelName, msg, context.file);
     QFile   outFile(logFilePath);
     outFile.open(QIODevice::WriteOnly | QIODevice::Append);
     QTextStream ts(&outFile);
-    ts << txt << endl;
+    ts << txt << "\n";
     outFile.close();
 #endif
     fprintf(stderr, "%s %s: %s (%s:%u, %s)\n", formattedTimeMsg.constData(), logLevelMsg.constData(), localMsg.constData(), context.file, context.line, context.function);
