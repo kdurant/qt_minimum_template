@@ -35,7 +35,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     res/res.qrc
 
-VERSION = 0.00
+GIT_HASH = $$system(git --git-dir $$PWD//.git log -1 --pretty=format:%h)
+DEFINES += GIT_HASH=\\\"$$GIT_HASH\\\"
+
+VERSION = 0.02
 DEFINES += SOFT_VERSION=\"\\\"$$VERSION\\\"\"
 
 TARGET = demo_app$$VERSION
