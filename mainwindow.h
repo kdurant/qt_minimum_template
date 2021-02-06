@@ -34,6 +34,5 @@ private:
     Ui::MainWindow *ui;
     QSettings *     configIni;
     QLabel *        statusLabel;
-    QString         softwareVer{SOFT_VERSION};
 };
 #endif  // MAINWINDOW_H

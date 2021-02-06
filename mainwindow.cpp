@@ -41,7 +41,7 @@ void MainWindow::initUI()
 
 void MainWindow::userStatusBar()
 {
-    statusLabel->setText("软件版本：" + QString(SOFT_VERSION) + "_" + QString(GIT_HASH));
+    statusLabel->setText("软件版本：" + QString(SOFT_VERSION) + "_" + QString(GIT_DATE) + "_" + QString(GIT_HASH));
     ui->statusbar->addPermanentWidget(statusLabel);
 }
 
