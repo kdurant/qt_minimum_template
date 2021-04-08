@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(customMessageOutput);
 
     QApplication a(argc, argv);
-    QFile        qss(":/qss/ui.qss");
+    QFile        qss(":/qss/ui.css");
     //    QFile qss("basic.qss");
     if(qss.open(QFile::ReadOnly))
     {
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
         QMessageBox::warning(NULL, "warning", "没有主题文件");
 
     QFont font;
-    font.setPixelSize(15);
+    font.setPixelSize(14);
     a.setFont(font);
 
     MainWindow w;
