@@ -6,6 +6,8 @@
 #include <QSettings>
 #include <QLabel>
 
+#include "common.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui
 {
