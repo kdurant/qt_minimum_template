@@ -23,6 +23,8 @@ bin
 Debug
 Release
 
+obj
+
 # C++ objects and libs
 *.slo
 *.lo

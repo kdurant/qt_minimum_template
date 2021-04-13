@@ -49,6 +49,9 @@ DEFINES += SOFT_VERSION=\"\\\"$$VERSION\\\"\"
 TARGET = demo_app$$VERSION"_"$$GIT_DATE"_"$$GIT_HASH
 
 DESTDIR = $$absolute_path($${_PRO_FILE_PWD_}/bin/)
+OBJECTS_DIR = $$absolute_path($${_PRO_FILE_PWD_}/obj/)
+MOC_DIR = $$absolute_path($${_PRO_FILE_PWD_}/obj/moc)
+UI_DIR = $$absolute_path($${_PRO_FILE_PWD_}/obj/ui)
 
 include($$PWD/changelog.pri)
 include($$PWD/deploy.pri)
