@@ -4,11 +4,10 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    statusLabel(new QLabel())
+    statusLabel(new QLabel()),
+    thread(new QThread())
 {
     ui->setupUi(this);
-
-    configIni = new QSettings("./config.ini", QSettings::IniFormat);
 
     initParameter();
     initUI();
@@ -21,17 +20,27 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// configIni->value("System/oceanPort").toString()
-// configIni->value("System/oceanPort").toInt()
 void MainWindow::initParameter()
 {
+    QFileInfo fileInfo("./config.ini");
+    if(!fileInfo.exists())
+    {
+        QFile file("./config.ini");
+        file.open(QIODevice::WriteOnly);
+        file.write("[System]\r\n");
+        file.write("; release, debug, debug_network\r\n");
+        file.write("mode = debug_network\r\n\r\n");
+        file.close();
+    }
+
+    configIni = new QSettings("./config.ini", QSettings::IniFormat);
+    //    sysPara.mode              = configIni->value("System/mode").toString();
 }
 
-//configIni->setValue("Laser/freq", 1111);
 void MainWindow::saveParameter()
 {
-    configIni->setValue("System/RadarType", "land");
-    configIni->setValue("Laser/freq", 1111);
+    //    configIni->setValue("System/RadarType", "land");
+    //    configIni->setValue("Laser/freq", 1111);
 }
 
 void MainWindow::initUI()
@@ -51,5 +60,6 @@ void MainWindow::initSignalSlot()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    saveParameter();
+    Q_UNUSED(event);
+    //    saveParameter();
 }

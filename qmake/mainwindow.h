@@ -18,6 +18,12 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+private:
+    struct _sys_para_
+    {
+        QString mode;
+    } sysPara;
+
 protected:
     void closeEvent(QCloseEvent *event);
 
@@ -36,5 +42,7 @@ private:
     Ui::MainWindow *ui;
     QSettings *     configIni;
     QLabel *        statusLabel;
+
+    QThread *thread;
 };
 #endif  // MAINWINDOW_H
