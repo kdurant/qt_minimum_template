@@ -7,7 +7,9 @@ set (CMAKE_INCLUDE_CURRENT_DIR ON)
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
-SET (EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin) # 静态库位置
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin) # 动态库位置
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin) # 可执行文件位置
 
 add_definitions ( -DSOFT_VERSION="v0.01" )
 
@@ -49,11 +51,11 @@ set (Project_UI  ../ui/mainwindow.ui)
 qt5_wrap_ui (Project_UI_MOC  ${Project_UI})
 
 set (SOURCES
-    src/main.cpp
-    src/mainwindow.cpp
+    main_window/main.cpp
+    main_window/mainwindow.cpp
     ${Project_UI_MOC}
     )
-qt5_add_resources (SOURCES ./res/res.qrc)
+qt5_add_resources (SOURCES ../res/res.qrc)
 
 add_executable (${PROJECT_NAME}
     ${SOURCES}
