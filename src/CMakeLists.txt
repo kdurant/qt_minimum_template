@@ -76,7 +76,7 @@ endif()
 
 target_link_libraries(
   ${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Network Qt5::Core Qt5::Gui
-                          Qt5::PrintSupport)
+                          Qt5::PrintSupport qcustomplot_shared)
 
 string(TIMESTAMP COMPILE_TIME %Y%m%d_%H%M%S)
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX

@@ -7,6 +7,7 @@
 #include <QLabel>
 
 #include "common.h"
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -34,6 +35,7 @@ public:
     void saveParameter();
 
     void initUI();
+    void PlotConfig();
     void userStatusBar();
     void initSignalSlot();
 
@@ -41,6 +43,8 @@ private:
     Ui::MainWindow *ui;
     QSettings      *configIni;
     QLabel         *statusLabel;
+
+    QVector<QCustomPlot *> m_UserPlot;
 
     UserPara m_user_para;
 };

@@ -9,8 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     configIni = new QSettings("./config.ini", QSettings::IniFormat);
+    generateDefaultParameter();
     initParameter();
     initUI();
+    PlotConfig();
 
     userStatusBar();
     initSignalSlot();
@@ -54,6 +56,20 @@ void MainWindow::saveParameter()
 void MainWindow::initUI()
 {
     setWindowTitle("xxx软件");
+}
+
+void MainWindow::PlotConfig()
+{
+    QVBoxLayout *widget1VBox;
+    widget1VBox = new QVBoxLayout;
+    ui->frame_main->setStyleSheet("QWidget#widget{background-color:gray;}");
+    ui->frame_main->setLayout(widget1VBox);
+    for(int i = 0; i < 2; ++i)
+    {
+        QCustomPlot *customPlot = new QCustomPlot;
+        m_UserPlot.append(customPlot);
+        widget1VBox->addWidget(customPlot, 2);
+    }
 }
 
 void MainWindow::userStatusBar()
