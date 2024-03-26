@@ -16,6 +16,7 @@ GRTAGS
 GTAGS*
 bin
 .nvimlog
+.cache
 
 ##################qt###################
 !compile_flags.txt

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(demo1 LANGUAGES CXX)
+# project(demo1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -83,3 +83,13 @@ set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX
                                                  "_${GIT_DATE}_${GIT_HASH}_d")
 set_target_properties(${PROJECT_NAME} PROPERTIES RELEASE_POSTFIX
                                                  "_${GIT_DATE}_${GIT_HASH}_r")
+
+# 将compile_commands.json复制到根目录
+add_custom_command(
+  TARGET ${PROJECT_NAME}
+  POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/compile_commands.json
+          ${CMAKE_SOURCE_DIR}/compile_commands.json)
+
+# 添加自定义目标，用于自动复制compile_commands.json
+add_custom_target(copy_compile_commands ALL DEPENDS ${PROJECT_NAME})
