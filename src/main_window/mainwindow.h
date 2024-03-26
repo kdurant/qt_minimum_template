@@ -6,6 +6,12 @@
 #include <QSettings>
 #include <QLabel>
 
+#include <QUdpSocket>
+#include <QTcpSocket>
+#include <QNetworkDatagram>
+#include <QHostAddress>
+#include <QNetworkInterface>
+
 #include "common.h"
 #include "qcustomplot.h"
 
@@ -21,6 +27,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 protected:
     void closeEvent(QCloseEvent *event);
+    void timerEvent(QTimerEvent *event);
 
 public:
     struct UserPara
@@ -35,14 +42,34 @@ public:
     void saveParameter();
 
     void initUI();
+    void udpBind();
+
     void PlotConfig();
     void userStatusBar();
     void initSignalSlot();
 
 private:
+    QStringList read_ip_address();
+
+signals:
+    void socketDatagramReady(QByteArray data);
+
+public slots:
+    void processPendingDatagram();
+
+
+private:
     Ui::MainWindow *ui;
     QSettings      *configIni;
     QLabel         *statusLabel;
+
+    QHostAddress deviceIP{QHostAddress("192.168.0.100")};
+    quint16      devicePort{8888};
+    QStringList  localIP;
+    quint16      localPort{6666};
+    QUdpSocket  *udpSocket;
+
+    qint32 timer1s;
 
     QVector<QCustomPlot *> m_UserPlot;
 

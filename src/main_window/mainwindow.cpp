@@ -11,11 +11,15 @@ MainWindow::MainWindow(QWidget *parent) :
     configIni = new QSettings("./config.ini", QSettings::IniFormat);
     generateDefaultParameter();
     initParameter();
+
     initUI();
     PlotConfig();
+    udpBind();
 
     userStatusBar();
     initSignalSlot();
+
+    timer1s = startTimer(1000);
 }
 
 MainWindow::~MainWindow()
@@ -43,6 +47,15 @@ void MainWindow::generateDefaultParameter()
 // configIni->value("System/oceanPort").toInt()
 void MainWindow::initParameter()
 {
+    if(configIni->value("System/mode").toString() == "debug")
+    {
+        localIP.append("127.0.0.1");
+        QMessageBox::information(this, "通知", "当前为调试模式, IP addr:127.0.0.1");
+        deviceIP = QHostAddress("127.0.0.1");
+    }
+    else
+        localIP = read_ip_address();
+
     m_user_para.width = configIni->value("System/width").toUInt();
 }
 
@@ -56,6 +69,13 @@ void MainWindow::saveParameter()
 void MainWindow::initUI()
 {
     setWindowTitle("xxx软件");
+}
+
+void MainWindow::udpBind()
+{
+    udpSocket = new QUdpSocket(this);
+    udpSocket->bind(QHostAddress::Any, localPort);
+    udpSocket->setSocketOption(QAbstractSocket::ReceiveBufferSizeSocketOption, 1024 * 1024 * 1);
 }
 
 void MainWindow::PlotConfig()
@@ -80,9 +100,78 @@ void MainWindow::userStatusBar()
 
 void MainWindow::initSignalSlot()
 {
+    //    connect(udpSocket, SIGNAL(readyRead()), this, SLOT(processPendingDatagram()));
+    connect(udpSocket, &QUdpSocket::readyRead, this, [this]() {
+        QByteArray datagram;
+        int        len;
+        while(udpSocket->hasPendingDatagrams())
+        {
+            len = udpSocket->pendingDatagramSize();
+            datagram.resize(len);
+            udpSocket->readDatagram(datagram.data(), datagram.size());
+            emit socketDatagramReady(datagram);
+        }
+    });
+}
+
+QStringList MainWindow::read_ip_address()
+{
+    QStringList ips;
+    QString     ip;
+
+    const QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
+
+    QList<QNetworkAddressEntry> entrys;
+    //    foreach(QNetworkInterface interface, interfaces)
+    for(int i = 0; i < interfaces.size(); i++)
+    {
+        entrys = interfaces.at(i).addressEntries();
+        for(auto entery : entrys)
+        {
+            switch(entery.ip().protocol())
+            {
+                case QAbstractSocket::IPv4Protocol:
+                    ip = entery.ip().toString();
+                    if(ip.contains("192.168."))
+                        ips.append(ip);
+                    break;
+                case QAbstractSocket::IPv6Protocol:
+                    break;
+                case QAbstractSocket::AnyIPProtocol:
+                    break;
+                case QAbstractSocket::UnknownNetworkLayerProtocol:
+                    break;
+            }
+        }
+    }
+
+    std::sort(ips.begin(), ips.end());
+    return ips;
+}
+
+void MainWindow::processPendingDatagram()
+{
+    QByteArray datagram;
+    int        len;
+    while(udpSocket->hasPendingDatagrams())
+    {
+        len = udpSocket->pendingDatagramSize();
+        datagram.resize(len);
+        udpSocket->readDatagram(datagram.data(), datagram.size());
+
+        // dispatch->parserFrame(datagram);
+        emit socketDatagramReady(datagram);
+    }
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    saveParameter();
+    //    saveParameter();
+}
+
+void MainWindow::timerEvent(QTimerEvent *event)
+{
+    if(timer1s == event->timerId())
+    {
+    }
 }
