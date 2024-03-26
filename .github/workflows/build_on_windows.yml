@@ -1,0 +1,36 @@
+# 修改pro文件里文件里的版本号, 即可触发action
+# 和git tag需要同时修改版本号
+
+name: Windows MinGW
+on: 
+  push:
+    branches: 
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '5.15.2'
+        arch:  'win64_msvc2019_64'
+        cache: true
+
+    - name: Configure CMake
+      run: cmake -B build
+      
+    - name: Build
+      run: cmake --build build
+
+
+    # - name: Upload artifact
+      # uses: actions/upload-artifact@v2
+      # with:
+        # name: myapp.exe
+        # path: build/bin/myapp.exe

@@ -57,7 +57,7 @@ find_package(
   COMPONENTS PrintSupport
   REQUIRED)
 
-add_subdirectory(third_lib/QCustomPlot)
+# add_subdirectory(third_lib/QCustomPlot)
 
 # set (Project_UI  ${PROJECT_SOURCE_DIR}/mainwindow.ui)
 set(Project_UI ../ui/mainwindow.ui)
@@ -65,7 +65,8 @@ qt5_wrap_ui(Project_UI_MOC ${Project_UI})
 
 include_directories(third_lib/QCustomPlot)
 
-set(SOURCES main_window/main.cpp main_window/mainwindow.cpp ${Project_UI_MOC})
+set(SOURCES main_window/main.cpp main_window/mainwindow.cpp
+            third_lib/QCustomPlot/qcustomplot.cpp ${Project_UI_MOC})
 qt5_add_resources(SOURCES ../res/res.qrc)
 
 if(WIN32)
@@ -76,7 +77,7 @@ endif()
 
 target_link_libraries(
   ${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Network Qt5::Core Qt5::Gui
-                          Qt5::PrintSupport qcustomplot_shared)
+                          Qt5::PrintSupport)
 
 string(TIMESTAMP COMPILE_TIME %Y%m%d_%H%M%S)
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX
@@ -84,12 +85,14 @@ set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX
 set_target_properties(${PROJECT_NAME} PROPERTIES RELEASE_POSTFIX
                                                  "_${GIT_DATE}_${GIT_HASH}_r")
 
-# 将compile_commands.json复制到根目录
-add_custom_command(
-  TARGET ${PROJECT_NAME}
-  POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/compile_commands.json
-          ${CMAKE_SOURCE_DIR}/compile_commands.json)
+if(UNIX)
+  # 将compile_commands.json复制到根目录
+  add_custom_command(
+    TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/compile_commands.json
+            ${CMAKE_SOURCE_DIR}/compile_commands.json)
 
-# 添加自定义目标，用于自动复制compile_commands.json
-add_custom_target(copy_compile_commands ALL DEPENDS ${PROJECT_NAME})
+  # 添加自定义目标，用于自动复制compile_commands.json
+  add_custom_target(copy_compile_commands ALL DEPENDS ${PROJECT_NAME})
+endif()
