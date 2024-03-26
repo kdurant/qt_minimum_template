@@ -57,9 +57,13 @@ find_package(
   COMPONENTS PrintSupport
   REQUIRED)
 
+add_subdirectory(third_lib/QCustomPlot)
+
 # set (Project_UI  ${PROJECT_SOURCE_DIR}/mainwindow.ui)
 set(Project_UI ../ui/mainwindow.ui)
 qt5_wrap_ui(Project_UI_MOC ${Project_UI})
+
+include_directories(third_lib/QCustomPlot)
 
 set(SOURCES main_window/main.cpp main_window/mainwindow.cpp ${Project_UI_MOC})
 qt5_add_resources(SOURCES ../res/res.qrc)
@@ -67,7 +71,7 @@ qt5_add_resources(SOURCES ../res/res.qrc)
 if(WIN32)
   add_executable(${PROJECT_NAME} WIN32 ${SOURCES} ../res/app_icon.rc)
 else()
-  add_executable(${PROJECT_NAME} ${SOURCES} )
+  add_executable(${PROJECT_NAME} ${SOURCES})
 endif()
 
 target_link_libraries(
