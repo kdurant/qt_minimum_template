@@ -4,6 +4,6 @@
         <file>rbtn_checked.png</file>
         <file>rbtn_unchecked.png</file>
         <file>ui.css</file>
-        <file>radar_icon.ico</file>
+        <file>app_icon.ico</file>
     </qresource>
 </RCC>

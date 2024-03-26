@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     QFile        qss(":/qss/ui.css");
-    a.setWindowIcon(QIcon(":qss/radar_icon.ico"));
+    a.setWindowIcon(QIcon(":qss/app_icon.ico"));
     //    QFile qss("basic.qss");
     if(qss.open(QFile::ReadOnly))
     {
